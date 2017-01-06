@@ -78,9 +78,8 @@ config.module.loaders.push({
   test: /\.css$/,
   exclude: null,
   loaders: [
-    "style",
-    "css?sourceMap&-minimize",
-    "postcss"
+    "style?sourceMap",
+    "css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]"
   ]
 });
 
