@@ -1,8 +1,5 @@
 const path = require("path");
-const debug = require("debug")("app:conf:project");
 const argv = require("yargs").argv;
-
-debug("Creating project configuration..");
 
 const config = {
   env: process.env.NODE_ENV || "development",
@@ -43,7 +40,7 @@ function base () {
 config.paths = {
   client: base.bind(null, "src"),
   public: base.bind(null, "public"),
-  dist: base.bind(null, "dist")
+  build: base.bind(null, "build")
 };
 
 config.globals = {

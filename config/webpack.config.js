@@ -1,13 +1,10 @@
 const path = require("path");
-const debug = require("debug")("app:config:webpack");
 const argv = require("yargs").argv;
 const webpack = require("webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const cssnano = require("cssnano");
 const project = require("./project.config");
-
-debug("Creating webpack configuration..");
 
 const config = {
   name: "client",
@@ -20,29 +17,33 @@ const config = {
   module: {}
 }
 
-const entry = project.paths.client("main.js");
-
 config.entry = {
-  app: project.globals.dev
-  ? entry.concat(`webpack-hot-middleware/client?path=${ project.compiler.path }__webpack_hmr`)
-  : entry,
+  app: project.paths.client("main.js"),
   vendor: project.compiler.vendors
 };
 
 config.output = {
-  filename: `[name].[${ project.compiler.hash }].js`,
-  path: project.paths.dist(),
+  filename: "[name].js",
+  chunkFileName: "[name].chunk.js",
+  path: project.paths.build(),
   publicPath: project.compiler.path
 };
 
 config.externals = {
-    "react/lib/ExecutionEnvironment": true,
-    "react/lib/ReactContext": true,
-    "react/addons": true
+  "react/lib/ExecutionEnvironment": true,
+  "react/lib/ReactContext": true,
+  "react/addons": true
 };
 
 config.plugins = [
   new webpack.DefinePlugin(project.globals),
+  new webpack.optimize.CommonsChunkPlugin({
+    name: "vendor",
+    children: true,
+    minChunks: 2,
+    async: true,
+  }),
+  new webpack.optimize.DedupePlugin(),
   new HtmlWebpackPlugin({
     template: project.paths.client("index.html"),
     hash: false,
@@ -50,7 +51,16 @@ config.plugins = [
     filename: "index.html",
     inject: "body",
     minify: {
-      collapseWhitespace : true
+      removeComments: true,
+      collapseWhitespace: true,
+      removeRedundantAttributes: true,
+      useShortDoctype: true,
+      removeEmptyAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      keepClosingSlash: true,
+      minifyJS: true,
+      minifyCSS: true,
+      minifyURLs: true
     }
   })
 ];
