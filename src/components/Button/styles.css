@@ -1,0 +1,10 @@
+.button {
+  padding: 0.5em 2em;
+  color: #ffffff;
+  background-color: #02b875;
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

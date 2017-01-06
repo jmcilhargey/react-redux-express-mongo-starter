@@ -8,7 +8,8 @@ import { syncHistoryWithStore } from "react-router-redux";
 import store from "./store";
 import routes from "./routes";
 
-import App from "./containers/App";
+require("./main.css");
+import App from "./containers/App/index";
 
 const Root = ({ store }) => (
   <Provider store={ store }>
