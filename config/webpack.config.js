@@ -1,5 +1,5 @@
 const path = require("path");
-const argv = require("yargs").argv;
+const argv = require("minimist");
 const webpack = require("webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");

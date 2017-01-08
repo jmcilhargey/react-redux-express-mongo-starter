@@ -1,5 +1,5 @@
 const path = require("path");
-const argv = require("yargs").argv;
+const argv = require("minimist");
 
 const config = {
   env: process.env.NODE_ENV || "development",
