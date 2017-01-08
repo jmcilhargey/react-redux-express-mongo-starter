@@ -1,0 +1,32 @@
+.card {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 1em;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.media {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.title,
+.text {
+  padding: 1em;
+}
+
+.sub-title {
+  padding: 1em 1em 0 1em;
+}
+
+.title > h2,
+.sub-title > h3,
+.text > p {
+  margin: 0;
+}
