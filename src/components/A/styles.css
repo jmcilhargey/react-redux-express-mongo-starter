@@ -3,7 +3,8 @@
   cursor: pointer;
   margin-left: 2em;
   color: inherit;
-  transition: color 0.2s ease-in;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
 }
 
 .a:hover {

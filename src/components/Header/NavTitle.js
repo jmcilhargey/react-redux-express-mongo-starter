@@ -5,7 +5,7 @@ import styles from "./styles.css";
 
 const NavTitle = () => (
   <div>
-    <h1 className={ styles.title }>Sample Boilerplate</h1>
+    <h1 styleName="title">Sample Boilerplate</h1>
   </div>
 );
 
