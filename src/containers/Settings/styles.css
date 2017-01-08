@@ -1,0 +1,9 @@
+.content {
+  flex: 1;
+}
+
+.container {
+  max-width: 50em;
+  margin: 0 auto;
+  text-align: center;
+}

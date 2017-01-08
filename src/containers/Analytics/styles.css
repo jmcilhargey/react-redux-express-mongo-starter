@@ -8,13 +8,11 @@
   text-align: center;
 }
 
-.form {
+.row {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  text-align: left;
-  width: 20em;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row; 
 }
