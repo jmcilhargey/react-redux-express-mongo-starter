@@ -1,5 +1,8 @@
 module.exports = {
-  uri: process.env.MONGO_URI || "mongodb://localhost:27017/test",
-  port: process.env.PORT || 5000,
-  secret: process.env.SECRET || "secret"
+  mongoUri: process.env.MONGO_URI || "mongodb://localhost:27017/test",
+  jwtSecret: process.env.JWT_SECRET || "secret",
+  github: {
+    id: process.env.GITHUB_ID || "github_id",
+    secret: process.env.GITHUB_SECRET || "github_secret",
+  }
 };

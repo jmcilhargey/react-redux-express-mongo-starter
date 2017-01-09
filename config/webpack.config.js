@@ -3,7 +3,6 @@ const argv = require("minimist");
 const webpack = require("webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const cssnano = require("cssnano");
 const project = require("./project.config");
 
 const config = {
@@ -82,24 +81,6 @@ config.module.loaders.push({
     "css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]"
   ]
 });
-
-config.postcss = [
-  cssnano({
-    autoprefixer: {
-      add: true,
-      remove: true,
-      browsers : ["last 2 versions"]
-    },
-    discardComments : {
-      removeAll: true
-    },
-    discardUnused: false,
-    mergeIdents: false,
-    reduceIdents: false,
-    safe: true,
-    sourcemap: true
-  })
-];
 
 config.module.loaders.push(
   { test: /\.svg(\?.*)?$/, loader: "url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml" },

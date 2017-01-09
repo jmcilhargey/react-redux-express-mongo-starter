@@ -1,9 +1,11 @@
 const path = require("path");
 const argv = require("minimist");
+const ip = require("ip");
 
 const config = {
   env: process.env.NODE_ENV || "development",
   host: "localhost",
+  ip: ip.address(),
   port: process.env.PORT || 3000,
   base: path.resolve(__dirname, "..")
 };
