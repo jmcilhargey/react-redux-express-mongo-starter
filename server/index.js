@@ -1,19 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const passport = require("passport");
 const path = require("path");
 const logger = require("./utils/logger");
 const argv = require("minimist");
-const config = require("../config/server.config");
+const server = require("../config/server.config");
+const project = require("../config/project.config");
 const setup = require("./middleware/setup");
-const passport = require("passport");
+const errors = require("./utils/errors");
 
 const app = express();
 const connection = connect();
 
 require("./passport")(app);
-require("./express")(app, passport);
-const routes = require('./routes')(app, passport);
+require("./middleware/express")(app, passport);
 
+const routes = require('./routes')(app, passport);
 app.use("/api", routes);
 
 setup(app, {
@@ -21,15 +23,17 @@ setup(app, {
   publicPath: '/',
 });
 
-app.listen(config.port, (err) => {
+errors(app);
+
+app.listen(project.port, (err) => {
   if (err) {
     return logger.error(err.message);
   }
-  logger.appStarted(config.port);
+  logger.started(project.port, project.ip);
 });
 
-function connect () {
-  var options = { server: { socketOptions: { keepAlive: 1 } } };
-  var connection = mongoose.connect(config.uri, options).connection;
+function connect() {
+  const options = { server: { socketOptions: { keepAlive: 1 } } };
+  const connection = mongoose.connect(server.uri, options).connection;
   return connection;
 }
