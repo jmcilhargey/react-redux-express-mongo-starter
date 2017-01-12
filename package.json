@@ -4,9 +4,10 @@
   "description": "",
   "main": "server/app.js",
   "scripts": {
-    "build": "webpack --config config/webpack.config.js --colors --progress",
-    "start": "NODE_ENV=development node server",
-    "prod": "NODE_ENV=production npm run build && npm run start"
+    "build": "NODE_ENV=build webpack --config config/webpack.config.js --colors --progress",
+    "start": "NODE_ENV=development nodemon server",
+    "serve": "NODE_ENV=production node server",
+    "test": "mocha server/test --compilers js:babel-register"
   },
   "author": "Joe McIlhargey",
   "license": "ISC",
@@ -40,16 +41,28 @@
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "css-loader": "^0.26.1",
+    "css-modules-require-hook": "^4.0.5",
+    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.26.0",
     "isomorphic-fetch": "^2.2.1",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
     "react-css-modules": "^4.1.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-hot-middleware": "^2.14.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-2"
+    ]
   }
 }
