@@ -61,7 +61,8 @@ config.plugins = [
       minifyCSS: true,
       minifyURLs: true
     }
-  })
+  }),
+  new ExtractTextPlugin("styles.css")
 ];
 
 config.module.loaders = [];
@@ -73,14 +74,25 @@ config.module.loaders.push({
   query: project.compiler.babel
 });
 
-config.module.loaders.push({
-  test: /\.css$/,
-  exclude: null,
-  loaders: [
-    "style?sourceMap",
-    "css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]"
-  ]
-});
+if (process.env.NODE_ENV === "development") {
+  config.module.loaders.push({
+    test: /\.css$/,
+    exclude: null,
+    include: project.paths.client(),
+    loaders: [
+      "style?sourceMap",
+      "css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
+    ]
+  });
+}
+
+if (process.env.NODE_ENV === "build") {
+  config.module.loaders.push({
+    test: /\.css$/,
+    exclude: null,
+    loader: ExtractTextPlugin.extract("style-loader", "css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]")
+  });
+}
 
 config.module.loaders.push(
   { test: /\.svg(\?.*)?$/, loader: "url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml" },

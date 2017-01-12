@@ -6,7 +6,7 @@ const config = {
   env: process.env.NODE_ENV || "development",
   host: "localhost",
   ip: ip.address(),
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 5000,
   base: path.resolve(__dirname, "..")
 };
 
@@ -25,7 +25,7 @@ config.compiler = {
   babel: {
     cacheDirectory: true,
     plugins: ["transform-runtime"],
-    presets: ["es2015", "react", "stage-0"]
+    presets: ["es2015", "react", "stage-2"]
   },
   stats: {
     chunks : false,
