@@ -1,14 +1,17 @@
+"use strict";
+
 const User = require("../models/User");
 const GitHubStrategy = require("passport-github").Strategy;
 const project = require("../../config/project.config");
+const server = require("../../config/server.config");
 
-module.exports = function(app, passport) {
+module.exports = function(passport) {
 
   passport.use(new GitHubStrategy({
-      clientID: server.github.id,
-      clientSecret: server.github.secret,
-      callbackURL: `http://${ project.ip }:${ project.port }/auth/github/callback`
-    },
+    clientID: server.github.id,
+    clientSecret: server.github.secret,
+    callbackURL: `http://${ project.ip }:${ project.port }/auth/github/callback`
+  },
   function(accessToken, refreshToken, profile, cb) {
     User.findOne({ "github.id": profile.id }, function (err, user) {
       if (err) {

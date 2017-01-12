@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
   github: {
     id: {
       type: String
@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
     },
     publicRepos: {
       type: Number
-    }
+    },
     accessToken: {
       type: String
     }
