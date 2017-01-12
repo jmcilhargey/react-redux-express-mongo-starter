@@ -1,7 +1,6 @@
 .a {
   text-decoration: none;
   cursor: pointer;
-  margin-left: 2em;
   color: inherit;
   -webkit-transition: color 0.2s;
   transition: color 0.2s;

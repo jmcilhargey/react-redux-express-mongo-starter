@@ -3,7 +3,8 @@ import Home from "../containers/Home/index";
 import Data from "../containers/Data/index";
 import Analytics from "../containers/Analytics/index";
 import Charts from "../containers/Charts/index";
-import Settings from "../containers/Settings/index"
+import Settings from "../containers/Settings/index";
+import NotFound from "../containers/NotFound/index";
 
 const rootRoute = {
   childRoutes: [{
@@ -15,7 +16,8 @@ const rootRoute = {
       { path: "charts", component: Charts },
       { path: "data", component: Data },
       { path: "home", component: Home },
-      { path: "settings", component: Settings }
+      { path: "settings", component: Settings },
+      { path: "*", component: NotFound }
     ]
   }]
 };

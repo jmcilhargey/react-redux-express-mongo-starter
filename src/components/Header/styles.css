@@ -29,3 +29,7 @@
   justify-content: flex-end;
   margin: 0 1em;
 }
+
+.links > a {
+  margin-left: 2em;
+}

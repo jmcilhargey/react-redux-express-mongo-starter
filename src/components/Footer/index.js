@@ -4,7 +4,7 @@ import CSSModules from "react-css-modules";
 import styles from "./styles.css";
 
 const Footer = () => (
-  <div className={ styles.footer }>
+  <div styleName="footer">
     <p>Sample template for larger apps using React, Redux, Node, Express, Mongoose</p>
   </div>
 );
