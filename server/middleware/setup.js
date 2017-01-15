@@ -1,7 +1,10 @@
 import express from "express";
 import path from "path";
 import React from "react";
-import { renderToString } from "react-dom/server";
+import { renderToString } from "react/dist/react.min";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from "../../src/reducers"
 import { match, RouterContext } from "react-router";
 import renderPage from "../utils/render";
 
@@ -42,7 +45,10 @@ const addProdMiddleware = (app, options) => {
     extensions: [".css"]
   });
   const routes = require("../../src/routes").default;
-  app.use("/build", express.static("build"));
+  const store = createStore(rootReducer);
+
+  app.use(publicPath, express.static(outputPath));
+
   app.get("*", (req, res, next) => {
     match(
       { routes, location: req.url },
@@ -54,21 +60,21 @@ const addProdMiddleware = (app, options) => {
         if (redirectLocation) {
           return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
         }
-        let markup = null;
+        let html = null;
         if (renderProps) {
-          markup = renderToString(<RouterContext { ...renderProps } />);
+          html = renderToString(<RouterContext { ...renderProps } />);
         }
-        console.log(markup);
-        res.send(renderPage(markup));
+        const preloadedState = store.getState();
+
+        res.send(renderPage(html, preloadedState));
       }
     );
   });
 };
 
 module.exports = (app, options) => {
-  const isProd = process.env.NODE_ENV === "production";
 
-  if (isProd) {
+  if (process.env.NODE_ENV === "production") {
     addProdMiddleware(app, options);
   } else {
     const webpackConfig = require("../../config/webpack.config");
