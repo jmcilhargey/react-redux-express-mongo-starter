@@ -1,12 +1,11 @@
 import React from "react";
-import CSSModules from "react-css-modules";
 import styles from "./styles.css";
 
 const Input = ({ type, label, name, placeholder, onChange }) => (
   <div>
-    <label styleName="label">{ label }</label>
+    <label className={ styles.label }>{ label }</label>
     <input
-      styleName="input"
+      className={ styles.input }
       type={ type }
       label={ label }
       name={ name}
@@ -16,4 +15,4 @@ const Input = ({ type, label, name, placeholder, onChange }) => (
   </div>
 );
 
-export default CSSModules(Input, styles);
+export default Input;

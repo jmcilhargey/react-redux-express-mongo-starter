@@ -1,11 +1,10 @@
 import React from "react";
-import CSSModules from "react-css-modules";
 import styles from "./styles.css";
 
 import A from "../A";
 
 const NavLinks = () => (
-  <div styleName="links">
+  <div className={ styles.links }>
     <A to="home" name="Home" />
     <A to="data" name="Data" />
     <A to="analytics" name="Analytics" />
@@ -13,4 +12,4 @@ const NavLinks = () => (
   </div>
 );
 
-export default CSSModules(NavLinks, styles)
+export default NavLinks

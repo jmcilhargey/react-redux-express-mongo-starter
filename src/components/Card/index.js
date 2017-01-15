@@ -1,20 +1,19 @@
 import React from "react";
-import CSSModules from "react-css-modules";
 import styles from "./styles.css";
 
 const Card = ({ width, title, image, subTitle, text }) => (
-  <div styleName="card" style={ { width: width } }>
-    <div styleName="title">
+  <div className={ styles.card } style={ { width: width } }>
+    <div className={ styles.title }>
       <h2>{ title }</h2>
     </div>
-    <img styleName="media" src={ image }/>
-    <div styleName="sub-title">
+    <img className={ styles.media } src={ image }/>
+    <div className={ styles.subtitle }>
       <h3>{ subTitle }</h3>
     </div>
-    <div styleName="text">
+    <div className={ styles.text }>
       <p>{ text }</p>
     </div>
   </div>
 );
 
-export default CSSModules(Card, styles);
+export default Card;

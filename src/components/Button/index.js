@@ -1,9 +1,8 @@
 import React from "react";
-import CSSModules from "react-css-modules";
 import styles from "./styles.css";
 
-const Button = ({ onClick }) => (
-  <button styleName="button" onClick={ onClick }>Button</button>
+const Button = ({ onClick, text }) => (
+  <button className={ styles.button } onClick={ onClick }>{ text }</button>
 );
 
-export default CSSModules(Button, styles);
+export default Button;

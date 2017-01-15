@@ -19,25 +19,25 @@
   padding: 1em;
 }
 
-.size-auto {
+.sizeAuto {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
 
-.size1-3 {
+.size3 {
   -webkit-flex: 0 0 33.33%;
   -ms-flex: 0 0 33.33%;
   flex: 0 0 33.33%;
 }
 
-.size1-2 {
+.size2 {
   -webkit-flex: 0 0 50%;
   -ms-flex: 0 0 50%;
   flex: 0 0 50%;
 }
 
-.size1-4 {
+.size4 {
   -webkit-flex: 0 0 25%;
   -ms-flex: 0 0 25%;
   flex: 0 0 25%;
