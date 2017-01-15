@@ -11,15 +11,29 @@ const config = {
   devtool: project.compiler.devtool,
   resolve: {
     root: project.paths.client(),
-    extensions: ["", ".js", ".jsx", ".json"]
+    extensions: ["", ".js", ".jsx", ".json", ".css"]
   },
   module: {}
 }
 
-config.entry = {
-  app: project.paths.client("main.js"),
-  vendor: project.compiler.vendors
-};
+
+
+if (process.env.NODE_ENV === "development") {
+  config.entry = {
+    app: [
+      "react-hot-loader/patch",
+      "webpack-hot-middleware/client",
+      project.paths.client("index.js")
+    ]
+  };
+}
+
+if (process.env.NODE_ENV === "build") {
+  config.entry = {
+    app: project.paths.client("index.js"),
+    vendor: project.compiler.vendors
+  };
+}
 
 config.output = {
   filename: "[name].js",
@@ -34,7 +48,60 @@ config.externals = {
   "react/addons": true
 };
 
+if (process.env.NODE_ENV === "development") {
+  config.plugins = [
+    new webpack.DefinePlugin(project.globals),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new HtmlWebpackPlugin({
+      template: project.paths.client("index.html"),
+      hash: false,
+      favicon: project.paths.public("favicon.ico"),
+      filename: "index.html",
+      inject: "body",
+    })
+  ];
+}
+
+if (process.env.NODE_ENV === "build") {
+  config.plugins = [
+    new webpack.DefinePlugin(project.globals),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+      children: true,
+      minChunks: 2,
+      async: true,
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new HtmlWebpackPlugin({
+      template: project.paths.client("index.html"),
+      hash: false,
+      favicon: project.paths.public("favicon.ico"),
+      filename: "index.html",
+      inject: "body",
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
+    }),
+    new ExtractTextPlugin("styles.css")
+  ];
+}
+
 config.plugins = [
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin(project.globals),
   new webpack.optimize.CommonsChunkPlugin({
     name: "vendor",
@@ -79,10 +146,7 @@ if (process.env.NODE_ENV === "development") {
     test: /\.css$/,
     exclude: null,
     include: project.paths.client(),
-    loaders: [
-      "style?sourceMap",
-      "css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
-    ]
+    loader: "style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5]"
   });
 }
 
@@ -90,7 +154,7 @@ if (process.env.NODE_ENV === "build") {
   config.module.loaders.push({
     test: /\.css$/,
     exclude: null,
-    loader: ExtractTextPlugin.extract("style-loader", "css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]")
+    loader: ExtractTextPlugin.extract("style-loader", "style-loader!css-loader?modules=true&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]")
   });
 }
 
