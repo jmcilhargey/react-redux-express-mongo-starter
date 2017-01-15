@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
-import CSSModules from "react-css-modules";
 import styles from "./styles.css";
+import Helmet from "react-helmet";
 
 import Card from "../../components/Card";
 
@@ -10,9 +10,18 @@ const sampleText = "Lorem Ipsum is simply dummy text of the printing and typeset
 class Analytics extends Component {
   render() {
     return (
-      <div styleName="content container">
+      <div className={ `${ styles.content } ${ styles.container }` }>
+        <Helmet
+          title="Analytics - React Redux Starter Kit"
+          meta={[
+            { property: "og:url", content: "" },
+            { property: "og:title", content: "Analytics - React Redux Starter Kit" },
+            { property: "og:description", content: "" },
+            { name: "description", content: "" }
+          ]}
+        />
         <h1>Analytics</h1>
-        <div styleName="row">
+        <div className={ styles.row }>
           <Card
             width="350px"
             title="Title 1"
@@ -33,4 +42,4 @@ class Analytics extends Component {
   }
 }
 
-export default CSSModules(Analytics, styles, { allowMultiple: true });
+export default Analytics;
