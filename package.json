@@ -6,17 +6,19 @@
   "scripts": {
     "build": "NODE_ENV=build webpack --config config/webpack.config.js --colors --progress",
     "start": "NODE_ENV=development node index",
-    "serve": "NODE_ENV=production node index",
+    "serve": "NODE_ENV=production BABEL_ENV=node node index",
     "test": "mocha server/test --compilers js:babel-register"
   },
   "author": "Joe McIlhargey",
   "license": "ISC",
   "dependencies": {
+    "babel-plugin-transform-require-ignore": "0.0.2",
     "babel-polyfill": "^6.20.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
     "chalk": "^1.1.3",
     "compression": "^1.6.2",
+    "css-modules-require-hook": "^4.0.5",
     "express": "^4.14.0",
     "helmet": "^3.3.0",
     "ip": "^1.1.4",
@@ -46,7 +48,6 @@
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "css-loader": "^0.26.1",
-    "css-modules-require-hook": "^4.0.5",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.26.0",

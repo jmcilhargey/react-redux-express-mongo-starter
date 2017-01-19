@@ -34,7 +34,7 @@ config.compiler = {
   }
 };
 
-function base () {
+function base() {
   const args = [config.base].concat([].slice.call(arguments));
   return path.resolve.apply(path, args);
 }
@@ -43,16 +43,6 @@ config.paths = {
   client: base.bind(null, "src"),
   public: base.bind(null, "public"),
   build: base.bind(null, "build")
-};
-
-config.globals = {
-  "process.env": {
-    "NODE_ENV": JSON.stringify(config.env)
-  },
-  "ENV": config.env,
-  "DEV": config.env === "development",
-  "PROD": config.env === "production",
-  "TEST": config.env === "test"
 };
 
 module.exports = config;
