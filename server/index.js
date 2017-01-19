@@ -6,11 +6,10 @@ import logger from "./utils/logger";
 import argv from "minimist";
 import server from "../config/server.config";
 import project from "../config/project.config";
-import setup from "./middleware/setup";
 import errors from "./utils/errors";
 
 const app = express();
-const connection = connect();
+const db = connect();
 
 require("./passport")(passport);
 require("./middleware/express")(app, passport);
@@ -18,10 +17,11 @@ require("./middleware/express")(app, passport);
 const routes = require("./routes")(app, passport);
 app.use("/api", routes);
 
-setup(app, {
-  outputPath: path.resolve(process.cwd(), "build"),
-  publicPath: "/",
-});
+if (project.env === "production") {
+  require("./middleware/prod")(app, { outputPath: path.resolve(process.cwd(), "build"), publicPath: "/" });
+} else {
+  require("./middleware/dev")(app);
+}
 
 errors(app);
 
@@ -34,6 +34,8 @@ app.listen(project.port, (err) => {
 
 function connect() {
   const options = { server: { socketOptions: { keepAlive: 1 } } };
-  const connection = mongoose.connect(server.mongoUri, options).connection;
-  return connection;
+  const db = mongoose.connect(server.mongoUri, options).connection;
+  db.on("error", (err) => logger.error(err));
+  db.on("open", () => logger.connected(server.mongoUri));
+  return db;
 }

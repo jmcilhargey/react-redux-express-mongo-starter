@@ -1,18 +1,24 @@
 const chalk = require("chalk");
+const log = console.log;
 const ip = require("ip");
 
-const divider = chalk.gray("\n----------------------------------");
+const divider = chalk.gray("--------------------------------------");
 
 const logger = {
   error: (err) => {
-    console.error(chalk.red(err));
+    log(chalk.red(err));
   },
   started: (port, ip) => {
-    console.log(`Server started ${ chalk.green("✓") }`);
-    console.log(`${ chalk.bold("Access URLs:") }${ divider }`)
-    console.log(`Localhost: ${ chalk.magenta(`http://localhost:${ port }`) }`)
-    console.log(`LAN: ${ chalk.magenta(`http://${ ip }:${ port }`)}`)
-    console.log(`${ chalk.blue(`Press ${ chalk.italic("CTRL-C") } to stop`)}`)
+    log(`${ chalk.cyan(`Press ${ chalk.italic("CTRL-C") } to stop`)}`);
+    log(`${ chalk.green("✓ Server started") }`);
+    log(`${ divider }`);
+    log(`Localhost: ${ chalk.magenta(`http://localhost:${ port }`) }`);
+    log(`LAN: ${ chalk.magenta(`http://${ ip }:${ port }`)}`);
+  },
+  connected: (uri) => {
+    log(`${ chalk.green("✓ MongoDB connected") }`);
+    log(`${ divider }`);
+    log(`DB URI: ${ chalk.magenta(uri) }`);
   }
 };
 

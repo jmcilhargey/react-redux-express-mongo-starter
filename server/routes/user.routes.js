@@ -1,14 +1,14 @@
 "use strict";
 
-const express = require("express");
-const router = express.Router();
-const jwt = require("jsonwebtoken");
-const mid = require("../middleware/login");
-const server = require("../../config/server.config");
+import { isLoggedIn, isLoggedOut } from "../middleware/login";
+import express from "express";
+import jwt from "jsonwebtoken";
 
+const router = express.Router();
+const server = require("../../config/server.config");
 const User = require("../models/User");
 
-router.post("/register", mid.isLoggedOut, (req, res, next) => {
+router.post("/register", isLoggedOut, (req, res, next) => {
 
   const user = req.body;
 
@@ -37,7 +37,7 @@ router.post("/register", mid.isLoggedOut, (req, res, next) => {
   });
 });
 
-router.get("/login", mid.isLoggedOut, (req, res, next) => {
+router.get("/login", isLoggedOut, (req, res, next) => {
 
   const encoded = req.headers["authorization"].split(" ")[1];
   const decoded = new Buffer(encoded, "base64").toString("utf8").split(":");
@@ -57,7 +57,7 @@ router.get("/login", mid.isLoggedOut, (req, res, next) => {
   });
 });
 
-router.get("/logout", mid.isLoggedIn, (req, res, next) => {
+router.get("/logout", isLoggedIn, (req, res, next) => {
 
   if (req.decoded) {
     req.decoded = null;

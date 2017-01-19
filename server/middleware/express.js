@@ -1,7 +1,7 @@
-const express = require("express");
-const compression = require("compression");
-const bodyParser = require("body-parser");
-const helmet = require("helmet");
+import express from "express";
+import compression from "compression";
+import bodyParser from "body-parser";
+import helmet from "helmet";
 
 module.exports = function (app, passport) {
 
