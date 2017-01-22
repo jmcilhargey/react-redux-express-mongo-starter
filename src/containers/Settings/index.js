@@ -8,6 +8,16 @@ import Counter from "../../components/Counter";
 import * as SettingsActions from "./actions"
 
 class Settings extends Component {
+  static fetchData({ store }) {
+    // This is where we could load async data to the server store prior to render
+    // store.dispatch(SettingsActions.fetchCounter());
+  }
+  handleIncrement = (e) => {
+    this.props.incrementCounter();
+  }
+  handleDecrement = (e) => {
+    this.props.decrementCounter();
+  }
   render() {
     return (
       <div className={ `${ styles.content } ${ styles.container }` }>
@@ -23,8 +33,8 @@ class Settings extends Component {
         <h1>Settings</h1>
         <Counter
           counter={ this.props.counter }
-          onIncrement={ this.props.incrementCounter }
-          onDecrement={ this.props.decrementCounter }
+          onIncrement={ this.handleIncrement }
+          onDecrement={ this.handleDecrement }
         />
       </div>
     );
