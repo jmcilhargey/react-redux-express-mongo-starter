@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { routerReducer } from "react-router-redux";
 import analyticsReducer from "../containers/analytics/reducers";
 import appReducer from "../containers/app/reducers";
 import dataReducer from "../containers/data/reducers";
@@ -10,7 +11,8 @@ const rootReducer = combineReducers({
   appReducer,
   dataReducer,
   homeReducer,
-  settingsReducer
+  settingsReducer,
+  routing: routerReducer
 });
 
 export default rootReducer;

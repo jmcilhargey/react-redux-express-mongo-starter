@@ -1,6 +1,5 @@
-const path = require("path");
 const argv = require("minimist");
-const webpack = require("webpack")
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const project = require("./project.config");
@@ -14,7 +13,7 @@ const config = {
     extensions: ["", ".js", ".jsx", ".json", ".css"]
   },
   module: {}
-}
+};
 
 if (project.env === "development") {
   config.entry = {
@@ -65,7 +64,11 @@ if (project.env === "development") {
 
 if (project.env === "build") {
   config.plugins = [
-    new webpack.DefinePlugin(project.env),
+    new webpack.DefinePlugin({
+      "process.env": {
+        "NODE_ENV": JSON.stringify("production")
+      }
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
       children: true,
@@ -73,6 +76,8 @@ if (project.env === "build") {
       async: true,
     }),
     new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
     new HtmlWebpackPlugin({
       template: project.paths.client("index.html"),
       hash: false,
@@ -123,8 +128,8 @@ if (project.env === "build") {
 }
 
 config.module.loaders.push(
-  { test: /\.svg(\?.*)?$/, loader: "url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml" },
-  { test: /\.(png|jpg)$/, loader: "url?limit=8192" }
+  { test: /\.svg(\?.*)?$/, loader: "url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml" },
+  { test: /\.(png|jpg)$/, loader: "url-loader?limit=10000" }
 );
 
 module.exports = config;

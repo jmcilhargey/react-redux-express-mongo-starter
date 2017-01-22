@@ -6,18 +6,15 @@ import Settings from "../containers/Settings/index";
 import NotFound from "../containers/NotFound/index";
 
 const rootRoute = {
-  childRoutes: [{
     path: "/",
     component: App,
-    indexRoute: { onEnter: (nextState, replace) => replace("/home") },
+    indexRoute: { component: Home },
     childRoutes: [
       { path: "analytics", component: Analytics },
       { path: "data", component: Data },
-      { path: "home", component: Home },
       { path: "settings", component: Settings },
       { path: "*", component: NotFound }
     ]
-  }]
 };
 
 export default rootRoute;
