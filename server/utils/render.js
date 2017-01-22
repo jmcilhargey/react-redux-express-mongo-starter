@@ -15,7 +15,8 @@ export default (html, preloadedState) => {
         <script>
           window.__PRELOADED_STATE__ = ${ JSON.stringify(preloadedState) }
         </script>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+        <script type="text/javascript" src="/vendor.js"></script><script type="text/javascript" src="/app.js"></script></body>
       </body>
     </html>
   `

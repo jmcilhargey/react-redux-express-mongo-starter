@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  counter: {
+    type: Number,
+    default: 0
+  },
   github: {
     id: {
       type: String
