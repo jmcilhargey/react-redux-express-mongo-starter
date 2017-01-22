@@ -5,8 +5,9 @@
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 1.5em;
+  padding: 2em;
   background-color: #f4f7f8;
+  background-image: url("../../../public/header-background.png");
 }
 
 .title {

@@ -1,3 +1,13 @@
 .counter {
 
 }
+
+.btnGroup {
+  width: 12em;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+}

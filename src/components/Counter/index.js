@@ -7,8 +7,10 @@ const Counter = ({ counter, onIncrement, onDecrement }) => (
   <div className={ styles.counter }>
     <p>Current count:</p>
     <h1>{ counter }</h1>
-    <Button text="+" onClick={ onIncrement } />
-    <Button text="-" onClick={ onDecrement } />
+    <div className={ styles.btnGroup }>
+      <Button text="Add" onClick={ onIncrement } />
+      <Button text="Sub" onClick={ onDecrement } />
+    </div>
   </div>
 );
 
